@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ar">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>تحويل الروابط</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        margin: 50px;
+      }
+
+      textarea {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        resize: vertical;
+      }
+
+      button {
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      button:hover {
+        background-color: #0056b3;
+      }
+
+      ul {
+        list-style-type: none;
+        padding: 0;
+        text-align: left;
+        margin-top: 20px;
+      }
+
+      ul li {
+        margin-bottom: 5px;
+        border-bottom: 1px solid #ccc;
+        padding-bottom: 5px;
+      }
+
+      ul li a {
+        text-decoration: none;
+        color: #007bff;
+        cursor: pointer;
+        pointer-events: none; 
+      }
+    </style>
+  </head>
+  <body>
+    <h1>تحويل الروابط</h1>
+    <textarea
+      id="originalLink"
+      placeholder="أدخل الروابط هنا (استخدم Enter لفصل الروابط)"
+      rows="6"></textarea>
+    <button onclick="convertLink()">تحويل</button>
+    <ul id="convertedLink"></ul>
+
+    <script>
+      function convertLink() {
+        const originalLinks = document.getElementById("originalLink").value;
+        const linksArray = originalLinks.split("\n");
+
+        let convertedLinks = "";
+
+        linksArray.forEach((originalLink) => {
+          let convertedLink = originalLink.trim();
+
+          if (convertedLink.includes("/public_html/")) {
+            convertedLink = convertedLink.replace("/public_html/", "/");
+          }
+
+          if (
+            convertedLink.includes(
+              "ftp://uploader%2540dolfcourses.com@ftp.dolfcourses.com"
+            )
+          ) {
+            convertedLink = convertedLink.replace(
+              "ftp://uploader%2540dolfcourses.com@ftp.dolfcourses.com",
+              "http://dolfcourses.com"
+            );
+          }
+
+          convertedLinks +=
+            "<li><a href='" +
+            convertedLink +
+            "' target='_blank'>" +
+            convertedLink +
+            "</a></li>"; 
+        });
+
+        document.getElementById("convertedLink").innerHTML = convertedLinks;
+      }
+    </script>
+  </body>
+</html>
